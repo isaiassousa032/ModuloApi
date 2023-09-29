@@ -1,28 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ModuloApi.Controllers
+namespace ModuloApi.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class UsuarioController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class UsuarioController : ControllerBase
+    [HttpGet("ObterDataHoraAtual")]
+    public IActionResult ObterDataHora()
     {
-        [HttpGet("ObterDataHoraAtual")]
-        public IActionResult ObterDataHora()
+        var obj = new
         {
-            var obj = new
-            {
-                Data = DateTime.Now.ToLongDateString(),
-                Hora = DateTime.Now.ToShortTimeString(),
-            };
+            Data = DateTime.Now.ToLongDateString(),
+            Hora = DateTime.Now.ToShortTimeString(),
+        };
 
-            return Ok(obj);
-        }
+        return Ok(obj);
+    }
 
-        [HttpGet("Apresentar/{nome}")]
-        public IActionResult Apresentar(string nome)
-        {
-            var mensagem = $"Olá {nome}, seja bem vindo!";
-            return Ok(new {mensagem});
-        }
+    [HttpGet("Apresentar/{nome}")]
+    public IActionResult Apresentar(string nome)
+    {
+        var mensagem = $"Olá {nome}, seja bem vindo!";
+        return Ok(new {mensagem});
     }
 }
