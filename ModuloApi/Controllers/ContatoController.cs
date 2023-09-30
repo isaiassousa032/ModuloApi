@@ -20,7 +20,7 @@ public class ContatoController : ControllerBase
     {
         _context.Add(contato);
         _context.SaveChanges();
-        return Ok(contato);
+        return CreatedAtAction(nameof(ObterPorId), new { id = contato.Id }, contato);
     }
 
     [HttpGet("{id}")]
