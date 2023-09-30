@@ -30,4 +30,35 @@ public class ContatoController : ControllerBase
         if (contato == null) return NotFound();
         return Ok(contato);
     }
+
+    [HttpPut("{id}")]
+    public IActionResult Atualizar(int id, Contato contato)
+    {
+        var contatoBanco = _context.Contatos.Find(id);
+
+        if (contatoBanco == null) 
+            return NotFound();
+
+        contatoBanco.Nome = contato.Nome;
+        contatoBanco.Telefone = contato.Telefone;
+        contatoBanco.IsActive = contato.IsActive;
+
+        _context.Contatos.Update(contatoBanco);
+        _context.SaveChanges();
+        return Ok(contatoBanco);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Deletar(int id)
+    {
+        var contatoBanco = _context.Contatos.Find(id);
+
+        if (contatoBanco == null)
+            return NotFound();
+
+        _context.Contatos.Remove(contatoBanco);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
 }
