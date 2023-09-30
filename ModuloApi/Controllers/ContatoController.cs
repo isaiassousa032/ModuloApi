@@ -16,7 +16,7 @@ public class ContatoController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Contato contato)
+    public IActionResult Create(Contato contato)
     {
         _context.Add(contato);
         _context.SaveChanges();
@@ -29,6 +29,13 @@ public class ContatoController : ControllerBase
         var contato = _context.Contatos.Find(id);
         if (contato == null) return NotFound();
         return Ok(contato);
+    }
+
+    [HttpGet("ObterPorNome")]
+    public IActionResult ObterPorNome(string nome)
+    {
+        var contatos = _context.Contatos.Where(x => x.Nome.Contains(nome));
+        return Ok(contatos);
     }
 
     [HttpPut("{id}")]
